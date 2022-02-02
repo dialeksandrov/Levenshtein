@@ -40,22 +40,27 @@ public class Application {
 
     static String getResult(Cashier cashier){
         for (BlackList blackList : blackList){
-            int sum;
-            sum = calculate(blackList.getSurname().toLowerCase(), cashier.getSurname().toLowerCase());
-            sum += calculate(blackList.getName().toLowerCase(), cashier.getName().toLowerCase());
-      //      if (cashier.getPatr() != null){
+            if (cashier.getPatr() != null){
+                int sum;
+                int total;
+                sum = calculate(blackList.getSurname().toLowerCase(), cashier.getSurname().toLowerCase());
+                sum += calculate(blackList.getName().toLowerCase(), cashier.getName().toLowerCase());
                 sum += calculate(blackList.getPatr().toLowerCase(), cashier.getPatr().toLowerCase());
-
-      //     }
-
-            if (sum <= 3){
-                return cashier.getSurname() + " " + cashier.getName() + " " + cashier.getPatr();
-            } else {
-                int totalSum = sum + calculate(blackList.getBirthDate(), cashier.getBirthDate());
-                if (totalSum == sum){
+                if (sum <= 3){
+                    return cashier.getSurname() + " " + cashier.getName() + " " + cashier.getPatr();
+                } else {
+                    total = calculate(blackList.getBirthDate(), cashier.getBirthDate());
+                }
+                if (sum + total == sum){
                     return cashier.getSurname() + " " + cashier.getName() + " " + cashier.getPatr();
                 }
+            } else {
+                int sum;
+                sum = calculate(blackList.getSurname().toLowerCase(), cashier.getSurname().toLowerCase());
+                sum += calculate(blackList.getName().toLowerCase(), cashier.getName().toLowerCase());
+                return cashier.getSurname() + " " + cashier.getName() + " " + cashier.getPatr();
             }
+
         }
         return null;
     }
@@ -70,7 +75,7 @@ public class Application {
         cashiers.add(new Cashier("Алишер", "Абдрахманов", "Нурланбекович", "10-01-1977"));
         cashiers.add(new Cashier("Алишер", "Абдрахманов", "ТИЛЕВАЛДЫЕВИЧ", "10-01-1987"));
         cashiers.add(new Cashier("ИСМАИЛЖОН", "ИСХАКОВ", "ИСРАИЛОВИЧ", "10-01-1977"));
-//        cashiers.add(new Cashier("БУРУЛАЙ", "РАХМАНЖАН КЫЗЫ", null, "10-01-1977"));
+        cashiers.add(new Cashier("БУРУЛАЙ", "РАХМАНЖАН КЫЗЫ", "", "10-01-1977"));
         cashiers.add(new Cashier("ЭЛБЕК", "ХАЛИЛОВ", "АБДУХАЛИЛОВИЧ", "10-01-1977"));
         cashiers.add(new Cashier("ДИЛШАД", "АРИПОВ", "АДИЛЖАНОВИЧ", "10-01-1977"));
         cashiers.add(new Cashier("Исломжон", "Рахманов", "Дилмуратович", "10-01-1977"));
@@ -80,7 +85,7 @@ public class Application {
         blackList.add(new BlackList("Абдурасул", "Кайыпов", "Орозмаматович", "10-01-1977"));
         blackList.add(new BlackList("Алишер", "Абдрахманов", "Нурланбекович", "10-01-1977"));
         blackList.add(new BlackList("Исмаилжан", "Исаков", "Исраилович", "10-01-1944"));
-//        blackList.add(new BlackList("БУРУЛАЙ", "РАХМАНЖАН КЫЗЫ", null, "10-01-1977"));
+        blackList.add(new BlackList("БУРУЛАЙ", "РАХМАНЖАН КЫЗЫ", "", "10-01-1977"));
         blackList.add(new BlackList("ЭЛБЕК", "ХАЛИЛОВ", "АБДУХАЛИЛОВИЧ", "10-01-1977"));
         blackList.add(new BlackList("ДИЛШАД", "АРИПОВ", "АДИЛЖАНОВИЧ", "10-01-1977"));
         blackList.add(new BlackList("Исломжон", "Рахманов", "Дилмуратович", "10-01-1977"));
